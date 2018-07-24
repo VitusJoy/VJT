@@ -12,6 +12,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\Post;
+use yii\data\ActiveDataProvider;
 
 /**
  * Site controller
@@ -72,7 +74,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+
+        $dt_posts = new ActiveDataProvider([
+            'query' => Post::find()->orderBy('updated_at DESC'),
+            'pagination' => [
+                'pageSize' => 3
+                ]
+            ]); 
+
+
+        return $this->render('index', [
+                'dt_posts' => $dt_posts,
+            ]);
     }
 
     /**

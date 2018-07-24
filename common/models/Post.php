@@ -9,6 +9,7 @@ use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\base\Model; 
+use yii\helpers\StringHelper;
 
 
 /**
@@ -144,4 +145,17 @@ class Post extends \yii\db\ActiveRecord
     {
         return $this->hasMany(PostTag::className(), ['post_id' => 'id']);
     }
+
+    public function getPreview()
+    {
+        $words = 60;
+
+        if (StringHelper::countWords($this->content) > $words) {
+            return StringHelper::truncateWords($this->content, $words);
+        }else{
+            return $this->content;
+        }
+    } 
+
+
 }
