@@ -35,6 +35,9 @@ use yii\helpers\StringHelper;
  */
 class Post extends \yii\db\ActiveRecord
 {
+    public $imageFile;
+
+
     /**
      * {@inheritdoc}
      */
@@ -81,6 +84,7 @@ class Post extends \yii\db\ActiveRecord
         return [
             [['title','content', 'category_id'], 'required'],
             [['lead_text', 'content'], 'string'],
+            [['imageFile'],'file','skipOnEmpty'=>true, 'extensions'=>'png, jpg'],
             [['created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by', 'category_id'], 'integer'],
             [['title', 'slug', 'lead_photo'], 'string', 'max' => 128],
