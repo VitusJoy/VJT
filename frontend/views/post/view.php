@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
@@ -15,6 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-8 col-md-offset-2">
         <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
         <hr>
+        <?php if (isset($model->lead_photo)) { ?>
+            <div style="background-image: url(<?=Url::base().DIRECTORY_SEPARATOR.$model->lead_photo ?>); width:100%; height:80px;">
+                
+            </div>        
+        <?php } ?>
         <?=$model->content?>
         <hr>
         <div class="row">

@@ -10,6 +10,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\base\Model; 
 use yii\helpers\StringHelper;
+use yii\web\UploadedFile;
 
 
 /**
@@ -35,6 +36,10 @@ use yii\helpers\StringHelper;
  */
 class Post extends \yii\db\ActiveRecord
 {
+
+    /**
+     * @var UploadedFile
+     */
     public $imageFile;
 
 
@@ -159,6 +164,18 @@ class Post extends \yii\db\ActiveRecord
         }else{
             return $this->content;
         }
+    }
+
+    public function uploadAndSave(){
+        if ($this->validate()) {
+            if (isset($this->imageFile)) {
+                $this->lead_photo = 'uploads/'.$this->imageFile->baseName.'.'.$this->imageFile->extension;
+                $this->imageFile->saveAs($this->lead_photo);
+            }
+
+            return $this->save(false);
+        }
+        return false;
     } 
 
 
